@@ -1,0 +1,9 @@
+kernel vec4 coreImageKernel(sampler image, float minX, float maxX, float shift)
+{
+vec2 coord = samplerCoord( image );
+
+float x = coord.x;
+float inRange = compare( minX - x, compare( x - maxX, 1., 0. ), 0. );
+coord.x = coord.x + inRange * shift;
+return sample( image, coord );
+}
